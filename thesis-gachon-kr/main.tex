@@ -1,0 +1,71 @@
+% !TEX program = xelatex
+% !BIB program = bibtex
+%
+% 가천대학교 일반대학원 학위논문 (이공·자연계열) 템플릿
+% 빌드: xelatex → bibtex → xelatex → xelatex
+% Overleaf: 프로젝트 Settings → Compiler를 XeLaTeX로 설정
+
+\documentclass{gachon-thesis}
+
+\input{config/metadata}
+\input{config/fonts}
+
+\begin{document}
+
+% ====================================================
+% Front matter — 제본 순서 ①~⑨
+% ====================================================
+\frontmatter
+\pagenumbering{roman}
+\setcounter{page}{1}
+
+\include{frontmatter/01_cover}        % ① 표지 (별표1)
+\include{frontmatter/02_innercover}   % ③ 내표지 (별표2)
+\include{frontmatter/03_submission}   % ④ 논문제출서 (별표3)
+\include{frontmatter/04_approval}     % ⑤ 논문심사인준서 (별표4)
+\include{frontmatter/05_abstract_kr}  % ⑥ 국문초록 (별표5)
+
+% ⑦ 목차
+\tableofcontents
+\clearpage
+
+% ⑧ 표목차
+\listoftables
+\clearpage
+
+% ⑨ 그림목차
+\listoffigures
+\clearpage
+
+% ====================================================
+% Main matter — ⑩ 본문
+% ====================================================
+\mainmatter
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+\include{chapters/ch01_introduction}
+\include{chapters/ch02_background}
+\include{chapters/ch03_method}
+\include{chapters/ch04_result}
+\include{chapters/ch05_conclusion}
+
+% ====================================================
+% Back matter — ⑪ 참고문헌 / ⑫ 부록 / ⑬ 영문초록
+% ====================================================
+\backmatter
+
+% ⑪ 참고문헌
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{참고문헌}
+\bibliographystyle{IEEEtran}
+\bibliography{backmatter/references}
+
+% ⑫ 부록
+\include{backmatter/appendix}
+
+% ⑬ 영문초록
+\include{backmatter/abstract_en}
+
+\end{document}

@@ -1,0 +1,7 @@
+# latexmk configuration — force XeLaTeX
+# Overleaf: set Menu -> Settings -> Compiler to "XeLaTeX".
+# Locally: `latexmk main.tex` will build the thesis end-to-end.
+
+$pdf_mode = 5;           # 5 = xelatex
+$bibtex_use = 2;         # keep building even if .bib is missing
+$pdflatex = 'xelatex -synctex=1 -interaction=nonstopmode %O %S';

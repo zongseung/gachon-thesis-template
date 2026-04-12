@@ -1,0 +1,50 @@
+% ==========================================================
+% Font configuration
+% ==========================================================
+%
+% The English guidelines require Times New Roman for all
+% headings and body text. Overleaf and many Linux TeX Live
+% installations do not ship the proprietary "Times New Roman"
+% font file, so we fall back to TeX Gyre Termes, a metrically
+% compatible free Times clone that is bundled with TeX Live.
+%
+% ----------------------------------------------------------
+% Option A) TeX Gyre Termes (default — works everywhere)
+% ----------------------------------------------------------
+\setmainfont{TeX Gyre Termes}
+
+% ----------------------------------------------------------
+% Option B) Real Times New Roman
+% ----------------------------------------------------------
+% If you have Times New Roman installed system-wide (macOS,
+% Windows) or if you upload the .ttf files to the `fonts/`
+% folder of this project on Overleaf, comment out Option A
+% above and enable one of the blocks below.
+%
+% System-installed Times New Roman:
+% \setmainfont{Times New Roman}
+%
+% Using uploaded .ttf files in ./fonts/ :
+% \setmainfont{Times New Roman}[
+%   Path=./fonts/,
+%   Extension=.ttf,
+%   UprightFont=times,
+%   BoldFont=timesbd,
+%   ItalicFont=timesi,
+%   BoldItalicFont=timesbi
+% ]
+
+% ----------------------------------------------------------
+% Korean font (only used on the back Korean abstract page)
+% ----------------------------------------------------------
+% kotex supplies a default Korean font that works out of the
+% box on Overleaf and TeX Live. For a polished submission
+% you may wish to use a Myeongjo-style font such as Hamchorom
+% Batang. Drop the .ttf files into ./fonts/ and uncomment:
+%
+% \setmainhangulfont{HCR Batang}[
+%   Path=./fonts/,
+%   Extension=.ttf,
+%   UprightFont=HANBatang,
+%   BoldFont=HANBatangB
+% ]

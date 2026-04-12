@@ -1,0 +1,8 @@
+# latexmk 설정 — XeLaTeX 강제
+# Overleaf는 프로젝트 Settings의 Compiler 값을 우선시하므로,
+# Overleaf에서는 Menu → Settings → Compiler를 "XeLaTeX"로 지정하세요.
+# 로컬에서는 `latexmk main.tex` 한 줄로 빌드됩니다.
+
+$pdf_mode = 5;           # 5 = xelatex
+$bibtex_use = 2;         # .bib이 없어도 빌드 계속
+$pdflatex = 'xelatex -synctex=1 -interaction=nonstopmode %O %S';
