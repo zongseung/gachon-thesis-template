@@ -5,7 +5,7 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{gachon-thesis-en}[2026/04/12 Gachon University English Thesis Class]
 
-\LoadClass[11pt,twoside,openright]{book}
+\LoadClass[11pt,twoside,openany]{book}
 
 % ---------------------------------------------------------------
 % Paper and margins — B5 (190 mm x 260 mm)
@@ -72,6 +72,14 @@
 % ---------------------------------------------------------------
 \RequirePackage{titlesec}
 \RequirePackage{titletoc}
+\RequirePackage{etoolbox}
+
+% Degree helper — the metadata file switches behaviour from the
+% official degree label rather than requiring manual edits in
+% multiple places.
+\newcommand{\IfDoctoralTF}[2]{%
+  \ifdefstrequal{\DegreeType}{Doctoral Dissertation}{#1}{#2}%
+}
 
 % Numbered chapter: "1. Title" 16pt bold, centered
 \titleformat{\chapter}[block]
@@ -81,7 +89,7 @@
   {}
 \titlespacing*{\chapter}{0pt}{30pt}{24pt}
 
-% Numberless chapter: used for Abstract, TOC, References, Appendix, Korean abstract
+% Numberless chapter: used for TOC, References, Appendix, Korean abstract
 \titleformat{name=\chapter,numberless}[block]
   {\filcenter\normalfont\fontsize{16pt}{20pt}\selectfont\bfseries}
   {}{0pt}{}
@@ -118,7 +126,7 @@
   {}
   {\titlerule*[0.5pc]{.}\contentspage}
 
-% Numberless chapter entry — used for Abstract, TOC, References, Appendix,
+% Numberless chapter entry — used for TOC, References, Appendix,
 % Korean abstract. Authors should use \addstarchaptertoc{Title} instead of
 % \addcontentsline{toc}{chapter}{Title} to get the proper format
 % (no "CHAPTER" prefix, 13pt bold, leader dots + page number).
@@ -164,7 +172,7 @@
 % ---------------------------------------------------------------
 \AtBeginDocument{%
   \renewcommand{\contentsname}{Table of Contents}%
-  \renewcommand{\listtablename}{List of Tables}%
+  \renewcommand{\listtablename}{List of Table}%
   \renewcommand{\listfigurename}{List of Figures}%
   \renewcommand{\bibname}{References}%
   \renewcommand{\appendixname}{Appendix}%

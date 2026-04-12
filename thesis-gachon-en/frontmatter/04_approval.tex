@@ -1,7 +1,8 @@
 % ===============================================
 % (5) Thesis Review Approval Sheet
-%   Master:  3 signatures (Chair + 2 Members)
-%   Doctoral: 5 signatures (Chair + 4 Members) — uncomment below
+%   Signature count follows \DegreeType automatically:
+%   Master's Thesis -> 3 signatures
+%   Doctoral Dissertation -> 5 signatures
 % ===============================================
 \begin{titlepage}
 \thispagestyle{empty}
@@ -28,9 +29,10 @@
 Committee Chair  & \underline{\hspace{55mm}}\hfill (Signature)\\[10mm]
 Committee Member & \underline{\hspace{55mm}}\hfill (Signature)\\[10mm]
 Committee Member & \underline{\hspace{55mm}}\hfill (Signature)\\[10mm]
-% --- For a doctoral dissertation, uncomment the 2 lines below ---
-% Committee Member & \underline{\hspace{55mm}}\hfill (Signature)\\[10mm]
-% Committee Member & \underline{\hspace{55mm}}\hfill (Signature)\\[10mm]
+\IfDoctoralTF{%
+Committee Member & \underline{\hspace{55mm}}\hfill (Signature)\\[10mm]
+Committee Member & \underline{\hspace{55mm}}\hfill (Signature)\\[10mm]
+}{}
 \end{tabular}
 }
 

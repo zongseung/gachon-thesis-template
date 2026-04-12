@@ -2,44 +2,80 @@
 % 폰트 설정
 % ==========================================================
 %
-% [기본] kotex가 제공하는 기본 한글 폰트를 그대로 사용합니다.
-%        별도 설치 없이 Overleaf 및 로컬 TeX Live에서 바로 컴파일됩니다.
-%        시각적으로 명조 계열 조판이 이루어지므로 초안용으로 충분합니다.
-%
-% [지침 준수] 가천대학교 지침은 "신명조 / 명조 / 휴먼명조 중 사용"을 요구합니다.
-%            제출본에는 함초롬바탕 같은 실제 명조 폰트를 권장합니다.
-%            아래 "옵션 A" 또는 "옵션 B" 섹션의 주석을 해제하세요.
+% 국문 작성지침은 신명조 / 명조 / 휴먼명조 계열을 요구합니다.
+% 이 파일은 지침 서체를 먼저 찾고, 없으면 명조 계열 대체 폰트를
+% 순서대로 적용하도록 구성합니다.
+
+\defaultfontfeatures{Ligatures=TeX}
 
 % ----------------------------------------------------------
-% 옵션 A) 함초롬바탕 (권장, 무료 배포, 지침 완전 준수)
+% 영문/숫자 폰트
 % ----------------------------------------------------------
-% 1) https://github.com/wkpark/HCR-LVT 또는
-%    https://im.cm/hamchorom/ 등에서 함초롬바탕 .ttf 다운로드
-% 2) thesis-gachon/fonts/ 폴더에 아래 2개 파일 배치:
-%      - HANBatang.ttf
-%      - HANBatangB.ttf
-% 3) 아래 6줄 주석 해제
-%
-% \setmainhangulfont{HCR Batang}[
-%   Path=./fonts/,
-%   Extension=.ttf,
-%   UprightFont=HANBatang,
-%   BoldFont=HANBatangB
-% ]
+% 표지와 영문초록의 라틴 문자는 Times 계열로 맞춥니다.
+\IfFileExists{./fonts/times.ttf}{%
+  \setmainfont{Times New Roman}[
+    Path=./fonts/,
+    Extension=.ttf,
+    UprightFont=times,
+    BoldFont=timesbd,
+    ItalicFont=timesi,
+    BoldItalicFont=timesbi
+  ]%
+}{%
+  \IfFontExistsTF{Times New Roman}{%
+    \setmainfont{Times New Roman}%
+  }{%
+    \setmainfont{TeX Gyre Termes}%
+    \PackageWarningNoLine{gachon-thesis}{Times New Roman was not found. Falling back to TeX Gyre Termes for Latin text}%
+  }%
+}
 
 % ----------------------------------------------------------
-% 옵션 B) 시스템에 설치된 명조 폰트 사용 (macOS/Windows)
+% 한글 본문 폰트
 % ----------------------------------------------------------
-% macOS 예시:
-% \setmainhangulfont{AppleMyungjo}
-%
-% Windows 예시:
-% \setmainhangulfont{Batang}[BoldFont={Batang Bold}]
+% Priority:
+%   1) Uploaded HCR Batang files in ./fonts/
+%   2) System-installed guideline serif fonts
+%   3) Other Myeongjo-style fonts commonly available
+\newcommand{\GachonKRSetHangulFontFallback}{%
+  \IfFontExistsTF{HY신명조}{%
+    \setmainhangulfont{HY신명조}%
+  }{%
+    \IfFontExistsTF{HYSMyeongJo}{%
+      \setmainhangulfont{HYSMyeongJo}%
+    }{%
+      \IfFontExistsTF{HYShinMyeongJo-Medium}{%
+        \setmainhangulfont{HYShinMyeongJo-Medium}%
+      }{%
+        \IfFontExistsTF{AppleMyungjo}{%
+          \setmainhangulfont{AppleMyungjo}%
+        }{%
+          \IfFontExistsTF{Batang}{%
+            \setmainhangulfont{Batang}%
+          }{%
+            \IfFontExistsTF{HCR Batang}{%
+              \setmainhangulfont{HCR Batang}%
+            }{%
+              \IfFontExistsTF{NanumMyeongjo}{%
+                \setmainhangulfont{NanumMyeongjo}[BoldFont={NanumMyeongjo ExtraBold}]%
+              }{%
+                \PackageWarningNoLine{gachon-thesis}{No guideline-serif Hangul font was found. kotex default font will be used. Install or upload a Myeongjo-family font for submission}%
+              }%
+            }%
+          }%
+        }%
+      }%
+    }%
+  }%
+}
 
-% ----------------------------------------------------------
-% 영문 폰트 (옵션)
-% ----------------------------------------------------------
-% 지침은 국문 기준이지만, 표지/초록의 영문 제목 가독성을 위해
-% 세리프 계열 영문 폰트를 지정하는 것을 권장합니다.
-%
-% \setmainfont{TeX Gyre Termes}   % Times 호환, TeX Live 기본 포함
+\IfFileExists{./fonts/HANBatang.ttf}{%
+  \setmainhangulfont{HCR Batang}[
+    Path=./fonts/,
+    Extension=.ttf,
+    UprightFont=HANBatang,
+    BoldFont=HANBatangB
+  ]%
+}{%
+  \GachonKRSetHangulFontFallback
+}

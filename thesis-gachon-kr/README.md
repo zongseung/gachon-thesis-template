@@ -51,18 +51,21 @@ xelatex main.tex
 
 ## 폰트 설정
 
-### 기본 (별도 설치 불필요)
+`config/fonts.tex` 는 이제 아래 순서로 한글 본문 폰트를 자동 탐색합니다.
 
-`config/fonts.tex` 는 기본적으로 **kotex 기본 폰트**를 사용하도록 비어 있습니다. Overleaf와 로컬 TeX Live 모두 바로 컴파일됩니다.
+1. `fonts/` 폴더에 업로드한 `HANBatang.ttf`, `HANBatangB.ttf`
+2. 시스템에 설치된 `HY신명조`, `AppleMyungjo`, `Batang` 등 명조 계열
+3. 위가 없을 때만 kotex 기본 폰트
 
-### 제출본용 — 함초롬바탕 (권장)
+영문/숫자 텍스트는 `Times New Roman` 을 먼저 찾고, 없으면 `TeX Gyre Termes` 로 폴백합니다.
 
-지침은 **신명조 / 명조 / 휴먼명조 중 사용**을 요구합니다. 제출본에는 무료 배포 폰트인 **함초롬바탕**을 권장합니다.
+### 제출본용 권장 설정
 
-1. 함초롬바탕 `.ttf` 다운로드 (예: `HANBatang.ttf`, `HANBatangB.ttf`)
-2. `thesis-gachon/fonts/` 폴더에 배치
-3. `config/fonts.tex` 의 **옵션 A** 섹션 6줄 주석 해제
-4. Overleaf의 경우, 프로젝트에 `fonts/` 폴더와 `.ttf` 파일을 함께 업로드 → Overleaf 서버에서도 동일하게 빌드됨
+지침은 **신명조 / 명조 / 휴먼명조 중 사용**을 요구합니다. Overleaf처럼 시스템 폰트가 제한된 환경에서는 무료 명조 계열인 **함초롬바탕**을 `fonts/` 폴더에 넣는 방식이 가장 현실적입니다.
+
+1. `HANBatang.ttf`, `HANBatangB.ttf` 준비
+2. `thesis-gachon-kr/fonts/` 폴더에 배치
+3. 별도 코드 수정 없이 다시 컴파일
 
 ## 제본 순서 (15단계)
 
@@ -112,7 +115,7 @@ thesis-gachon/
 ├── latexmkrc                       # 빌드 설정 (xelatex 강제)
 ├── config/
 │   ├── metadata.tex                # 논문 메타데이터 (여기만 수정)
-│   └── fonts.tex                   # 폰트 설정
+│   └── fonts.tex                   # 폰트 자동 탐색 설정
 ├── frontmatter/
 │   ├── 01_cover.tex                # 표지 + 면지
 │   ├── 02_innercover.tex           # 내표지
@@ -146,6 +149,7 @@ thesis-gachon/
 - [ ] 석사/박사에 맞게 `\DegreeKR` 과 `04_approval.tex` 의 심사위원 수가 맞는가
 - [ ] 국문초록 / 영문초록이 각 2쪽 이내인가
 - [ ] 핵심어 7~8단어가 기입되었는가
-- [ ] 함초롬바탕이 적용되었는가 (지침 완전 준수 시)
+- [ ] 신명조/명조/휴먼명조 계열 한글 폰트가 적용되었는가
+- [ ] 표지와 영문초록의 영문 글자가 Times 계열로 출력되는가
 - [ ] B5 규격으로 PDF가 출력되는가
 - [ ] 제본 순서가 지켜지는가

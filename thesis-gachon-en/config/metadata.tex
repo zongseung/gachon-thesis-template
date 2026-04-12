@@ -4,17 +4,22 @@
 % ==========================================================
 
 % ---- Degree type ----
-% "Master's Thesis" or "Doctoral Dissertation"
+% Change this single field to switch the English template between
+% master's and doctoral variants.
 \newcommand{\DegreeType}{Master's Thesis}
-% "Master of Engineering" or "Doctor of Philosophy in Engineering"
-\newcommand{\DegreeStatement}{Master of Engineering}
-% Submission statement body — Master vs. Doctoral.
-% Swap to the second line for a doctoral dissertation.
-\newcommand{\SubmissionStatement}{A thesis Submitted in partial fulfillment of the requirements for the degree of Master of Engineering.}
-%\newcommand{\SubmissionStatement}{A dissertation Submitted in partial fulfillment of the requirements for the degree of Doctor of Philosophy in Engineering.}
-% Approval sheet statement — Master vs. Doctoral.
-\newcommand{\ApprovalStatement}{The thesis of \AuthorEN\ has been approved by the thesis committee in partial fulfillment of the requirements for the degree of Master of Engineering.}
-%\newcommand{\ApprovalStatement}{The dissertation of \AuthorEN\ has been approved by the dissertation committee in partial fulfillment of the requirements for the degree of Doctor of Philosophy in Engineering.}
+\newcommand{\DegreeStatement}{%
+  \IfDoctoralTF{Doctor of Philosophy in Engineering}{Master of Engineering}%
+}
+\newcommand{\SubmissionStatement}{%
+  \IfDoctoralTF
+    {A dissertation Submitted in partial fulfillment of the requirements for the degree of Doctor of Philosophy in Engineering.}
+    {A thesis Submitted in partial fulfillment of the requirements for the degree of Master of Engineering.}%
+}
+\newcommand{\ApprovalStatement}{%
+  \IfDoctoralTF
+    {The dissertation of \AuthorEN\ has been approved by the dissertation committee in partial fulfillment of the requirements for the degree of Doctor of Philosophy in Engineering.}
+    {The thesis of \AuthorEN\ has been approved by the thesis committee in partial fulfillment of the requirements for the degree of Master of Engineering.}%
+}
 
 % ---- Title ----
 \newcommand{\ThesisTitleEN}{A Sample \LaTeX\ Template for Gachon University Thesis}
@@ -41,6 +46,6 @@
 \newcommand{\SubmissionMonth}{February}     % "February" or "August"
 
 % ---- Committee members (approval sheet) ----
-% Master: 3 signatures (Chair + 2 Members)
-% Doctoral: 5 signatures (Chair + 4 Members) — uncomment the extra 2
-% lines in frontmatter/04_approval.tex
+% Signature count is automatic from \DegreeType:
+% Master's Thesis -> Chair + 2 Members
+% Doctoral Dissertation -> Chair + 4 Members

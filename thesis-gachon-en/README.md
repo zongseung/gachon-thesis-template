@@ -28,14 +28,19 @@ xelatex main.tex
 
 ## 폰트 설정 — Times New Roman
 
-영문 지침은 본문 · 헤딩 전체에 대해 **Times New Roman** 을 요구합니다. 그러나 Overleaf와 많은 리눅스 TeX Live 에는 Times New Roman `.ttf` 가 기본 설치되어 있지 않습니다. 이를 고려하여 `config/fonts.tex` 는 기본값으로 **TeX Gyre Termes** (Times 호환, TeX Live 기본 포함) 를 사용합니다.
+영문 지침은 본문 · 헤딩 전체에 대해 **Times New Roman** 을 요구합니다. `config/fonts.tex` 는 이제 아래 순서로 자동 탐색합니다.
 
-실제 Times New Roman 을 사용하려면 아래 중 하나를 선택하세요.
+1. `fonts/` 폴더에 업로드한 `times.ttf`, `timesbd.ttf`, `timesi.ttf`, `timesbi.ttf`
+2. 시스템에 설치된 `Times New Roman`
+3. 둘 다 없을 때만 `TeX Gyre Termes` 로 폴백
 
-1. **시스템 설치 (macOS / Windows)**: `config/fonts.tex` 의 옵션 A 를 주석 처리하고 옵션 B의 `\setmainfont{Times New Roman}` 을 활성화
-2. **폰트 파일 업로드**: `thesis-gachon-en/fonts/` 폴더에 `times.ttf`, `timesbd.ttf`, `timesi.ttf`, `timesbi.ttf` 를 업로드한 뒤 옵션 B의 경로 버전을 활성화
+완전 준수가 필요하면 `Times New Roman` 이 실제로 잡히는 환경에서 컴파일해야 합니다. Overleaf처럼 시스템 폰트가 없는 환경에서는 `fonts/` 폴더에 위 4개 파일을 넣는 방식이 가장 확실합니다.
 
-국문초록(본문 뒤 배치)에는 kotex 기본 폰트가 사용되며, 별도 설치 없이도 컴파일됩니다. 제출본용으로 함초롬바탕 같은 명조 계열을 적용하려면 `config/fonts.tex` 의 `\setmainhangulfont` 블록 주석을 해제하세요.
+본문 뒤 국문초록은 다음 순서로 명조 계열 한글 폰트를 자동 탐색합니다.
+
+1. `fonts/` 폴더의 `HANBatang.ttf`, `HANBatangB.ttf`
+2. `HY신명조`, `AppleMyungjo`, `Batang` 등 시스템 명조 폰트
+3. 위가 없을 때만 kotex 기본 폰트
 
 ## 메타데이터 수정
 
@@ -43,7 +48,6 @@ xelatex main.tex
 
 ```latex
 \newcommand{\DegreeType}{Master's Thesis}              % 또는 "Doctoral Dissertation"
-\newcommand{\DegreeStatement}{Master of Engineering}   % 또는 "Doctor of Philosophy in Engineering"
 \newcommand{\ThesisTitleEN}{...}
 \newcommand{\ThesisTitleKR}{...}                       % 본문 뒤 국문초록용
 \newcommand{\AuthorEN}{Gildong Hong}
@@ -60,18 +64,13 @@ xelatex main.tex
 
 ### 석사 ↔ 박사 전환
 
-`config/metadata.tex` 에서 다음 항목을 수정하세요.
+`config/metadata.tex` 에서 `\DegreeType` 만 바꾸면 됩니다.
 
 | 필드 | 석사 (Master) | 박사 (Doctoral) |
 |---|---|---|
 | `\DegreeType` | `Master's Thesis` | `Doctoral Dissertation` |
-| `\DegreeStatement` | `Master of Engineering` | `Doctor of Philosophy in Engineering` |
-| `\SubmissionStatement` | `A thesis Submitted ... Master of Engineering.` | `A dissertation Submitted ... Doctor of Philosophy in Engineering.` |
-| `\ApprovalStatement` | `The thesis of ... Master of Engineering.` | `The dissertation of ... Doctor of Philosophy in Engineering.` |
 
-박사의 경우 추가로:
-
-1. `frontmatter/04_approval.tex` 하단 "Committee Member" 2줄 주석 해제 → 심사위원 5인 (위원장 1 + 위원 4)
+`DegreeStatement`, 제출문구, 인준문구, 심사위원 서명란 개수는 `\DegreeType` 값에 따라 자동 전환됩니다.
 
 ## 제본 순서 (영문 지침)
 
@@ -86,7 +85,7 @@ xelatex main.tex
 | (5) | Thesis Review Approval Sheet | `frontmatter/04_approval.tex` |
 | (6) | **ABSTRACT (English)** | `frontmatter/05_abstract_en.tex` |
 | (7) | Table of Contents | `\tableofcontents` (자동) |
-| (8) | List of Tables | `\listoftables` (자동) |
+| (8) | List of Table | `\listoftables` (자동) |
 | (9) | List of Figures | `\listoffigures` (자동) |
 | (10) | Main Text | `chapters/ch01~ch05` |
 | (11) | References | `\bibliography{backmatter/references}` |
@@ -126,7 +125,7 @@ thesis-gachon-en/
 ├── latexmkrc                        # 빌드 설정 (xelatex 강제)
 ├── config/
 │   ├── metadata.tex                 # 논문 메타데이터 (여기만 수정)
-│   └── fonts.tex                    # 폰트 설정 (Times New Roman / TeX Gyre Termes)
+│   └── fonts.tex                    # 폰트 자동 탐색 설정
 ├── frontmatter/
 │   ├── 01_cover.tex                 # Cover + Flyleaf
 │   ├── 02_innercover.tex            # Inner Cover
@@ -149,10 +148,10 @@ thesis-gachon-en/
 
 ## 알려진 제한 사항
 
-- **Times New Roman 가용성**: Overleaf 기본 환경에는 Times New Roman `.ttf` 가 설치되어 있지 않습니다. 본 템플릿은 **TeX Gyre Termes** (Times 호환) 를 기본값으로 사용합니다. 지침 완전 준수를 위해서는 `fonts/` 폴더에 Times New Roman `.ttf` 를 업로드하고 `config/fonts.tex` 의 옵션 B 를 활성화하세요.
-- **국문초록 폰트**: 본문 전체가 Times New Roman 계열 영문 폰트인 반면, 뒤에 오는 국문초록 한 페이지는 kotex 기본 한글 폰트로 조판됩니다. 제출본에서 명조 계열로 교체하려면 `config/fonts.tex` 의 `\setmainhangulfont` 블록을 활성화하세요.
+- **Times New Roman 가용성**: Overleaf 기본 환경에는 Times New Roman 이 없을 수 있습니다. 이 경우 `fonts/` 폴더에 `.ttf` 파일을 넣지 않으면 `TeX Gyre Termes` 로 폴백됩니다.
+- **국문초록 폰트**: `HANBatang.ttf` 계열이나 시스템 명조 폰트가 없으면 kotex 기본 폰트로 내려갑니다. 제출본이면 한글 명조 폰트가 실제로 잡히는지 확인하세요.
 - **부록 번호**: `\chapter*{Appendix}` 로 작성하므로 자동 장 번호는 부여되지 않습니다. 필요 시 `backmatter/appendix.tex` 에서 `\section*` 대신 `\section` 을 사용하여 번호를 수동 지정할 수 있습니다.
-- **국문초록 목차 표기**: `\addstarchaptertoc{국문초록}` 으로 목차에 "국문초록" 항목이 추가됩니다. 접두어("CHAPTER") 없이 굵은 13 pt 로 표시됩니다. References · Appendix · ABSTRACT 도 동일한 포맷을 사용합니다.
+- **목차 비번호 항목**: `References`, `Appendix`, `국문초록` 은 접두어("CHAPTER") 없이 굵은 13 pt 로 목차에 표시됩니다. 영문 `ABSTRACT` 는 원문 샘플 TOC에 맞춰 목차에 넣지 않습니다.
 - **제본 여백 0 mm**: 지침대로 `bindingoffset=0` 으로 설정되어 있습니다. 실제 제본 여유가 필요하면 `gachon-thesis-en.cls` 의 `bindingoffset` 을 조정하세요.
 - **장평 / 자간**: 영문 지침은 장평 · 자간 조정을 요구하지 않으므로 본 템플릿은 1:1 비율의 Times 폰트를 그대로 사용합니다 (국문 템플릿과의 차이점).
 
@@ -160,9 +159,10 @@ thesis-gachon-en/
 
 - [ ] `config/metadata.tex` 의 모든 항목이 본인 정보로 수정되었는가
 - [ ] `\SubmissionMonth` 가 `February` 또는 `August` 로 설정되었는가
-- [ ] 석사 / 박사에 맞게 `\DegreeType`, `\DegreeStatement`, `\SubmissionStatement`, `\ApprovalStatement`, `04_approval.tex` 의 심사위원 수가 모두 일관되는가
+- [ ] `\DegreeType` 값이 석사 / 박사 설정과 일치하는가
 - [ ] ABSTRACT (영문) / 국문초록이 각각 2 쪽 이내인가
 - [ ] Key words / 핵심어가 7~8 단어 기입되었는가
-- [ ] Times New Roman (또는 TeX Gyre Termes) 이 적용되었는가
+- [ ] Times New Roman 이 적용되었는가
+- [ ] 국문초록에 명조 계열 한글 폰트가 적용되었는가
 - [ ] B5 규격으로 PDF가 출력되는가
 - [ ] 제본 순서 (영문초록은 앞, 국문초록은 뒤) 가 지켜지는가

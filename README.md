@@ -28,7 +28,7 @@
 │   ├── latexmkrc
 │   ├── config/
 │   │   ├── metadata.tex                   ← 메타데이터 (여기만 수정)
-│   │   └── fonts.tex                      ← 폰트 설정 (함초롬바탕 옵션)
+│   │   └── fonts.tex                      ← 폰트 자동 탐색 설정
 │   ├── frontmatter/                       ← 표지·제출서·인준서·국문초록
 │   ├── chapters/                          ← 본문 5개 장
 │   ├── backmatter/                        ← 참고문헌·부록·영문초록
@@ -41,7 +41,7 @@
     ├── latexmkrc
     ├── config/
     │   ├── metadata.tex                   ← 메타데이터 (여기만 수정)
-    │   └── fonts.tex                      ← Times New Roman 설정
+    │   └── fonts.tex                      ← 폰트 자동 탐색 설정
     ├── frontmatter/                       ← 표지·제출서·인준서·영문초록
     ├── chapters/                          ← 본문 5개 장
     ├── backmatter/                        ← 참고문헌·부록·국문초록
@@ -145,7 +145,6 @@ xelatex main.tex
 
 ```latex
 \newcommand{\DegreeType}{Master's Thesis}       % 또는 "Doctoral Dissertation"
-\newcommand{\DegreeStatement}{Master of Engineering}
 \newcommand{\ThesisTitleEN}{Thesis Title}
 \newcommand{\ThesisTitleKR}{국문 제목}           % 뒷면 국문초록용
 \newcommand{\AuthorEN}{Gildong Hong}
@@ -160,8 +159,7 @@ xelatex main.tex
 ### 석사 ↔ 박사 전환
 
 1. `metadata.tex` 에서 학위 필드(`\DegreeKR` 또는 `\DegreeType`) 수정
-2. 영문판: `\DegreeStatement` 도 함께 수정 ("Doctor of Philosophy in Engineering")
-3. `frontmatter/04_approval.tex` 에서 **심사위원 2줄 주석 해제** (석사 3 인 → 박사 5 인)
+2. 영문판은 `\DegreeType` 만 바꾸면 제출문구·인준문구·심사위원 수가 자동 전환됨
 
 ---
 
@@ -169,14 +167,14 @@ xelatex main.tex
 
 ### 국문판
 
-- **기본값**: kotex 기본 한글 폰트 — 추가 설치 없이 즉시 컴파일됨
-- **지침 완전 준수**: 함초롬바탕 `.ttf` 를 `fonts/` 에 배치하고 `config/fonts.tex` 옵션 A 주석 해제
+- **기본 동작**: `HANBatang.ttf` 업로드본 → 시스템 명조 폰트 → kotex 기본 폰트 순으로 자동 탐색
+- **지침 준수 권장**: `fonts/` 에 `HANBatang.ttf`, `HANBatangB.ttf` 를 배치
 - 상세: [`thesis-gachon-kr/README.md`](thesis-gachon-kr/README.md)
 
 ### 영문판
 
-- **기본값**: **TeX Gyre Termes** (Times 호환, TeX Live 기본 포함)
-- **지침 완전 준수**: 실제 Times New Roman `.ttf` 을 `fonts/` 에 배치하고 `config/fonts.tex` 옵션 B 주석 해제
+- **기본 동작**: 업로드한 `Times New Roman` 파일 → 시스템 `Times New Roman` → `TeX Gyre Termes` 순으로 자동 탐색
+- **지침 준수 권장**: `fonts/` 에 `times.ttf`, `timesbd.ttf`, `timesi.ttf`, `timesbi.ttf` 를 배치
 - 국문초록 페이지 때문에 kotex가 무조건 로드됩니다 → XeLaTeX 필수
 - 상세: [`thesis-gachon-en/README.md`](thesis-gachon-en/README.md)
 
@@ -192,7 +190,7 @@ xelatex main.tex
 
 ### 영문판 제본 순서 (⚠️ 초록 위치가 다릅니다)
 
-① Cover → ② Flyleaf → ③ Inner Cover → ④ Submission → ⑤ Approval → ⑥ **Abstract (English)** → ⑦ TOC → ⑧ List of Tables → ⑨ List of Figures → ⑩ Main Text → ⑪ References → ⑫ Appendix → ⑬ **Abstract (Korean / 국문초록)** → ⑭ Blank → ⑮ Back Cover
+① Cover → ② Flyleaf → ③ Inner Cover → ④ Submission → ⑤ Approval → ⑥ **Abstract (English)** → ⑦ TOC → ⑧ **List of Table** → ⑨ List of Figures → ⑩ Main Text → ⑪ References → ⑫ Appendix → ⑬ **Abstract (Korean / 국문초록)** → ⑭ Blank → ⑮ Back Cover
 
 ---
 
@@ -233,14 +231,14 @@ PDF 출력 후 다음 항목을 **반드시** 육안으로 확인하세요.
 - [ ] 본문 줄간격이 시각적으로 180~200 %
 - [ ] 장 제목이 **"제N장 ..."** 형식
 - [ ] 번호 체계가 1.1 → 1.1.1 → (1) → ① 순으로 적용되는가
-- [ ] 휴먼명조 계열 글꼴이 적용되는가 (지침 준수 시)
+- [ ] 신명조/명조/휴먼명조 계열 한글 글꼴이 적용되는가
 
 ### 영문판 전용
 - [ ] 여백 위 30 / 아래 30 / 좌우 25 mm
 - [ ] 본문 줄간격이 1.5 또는 2.0
 - [ ] 장 제목이 **"1. Introduction"** 형식 (본문)
 - [ ] 목차 장 헤더가 **"CHAPTER 1. ..."** 형식
-- [ ] Times New Roman 계열 글꼴이 적용되는가
+- [ ] Times New Roman 이 적용되는가
 - [ ] 뒷면 국문초록(Appendix 10) 이 한글로 작성되어 있는가
 
 ---
@@ -270,7 +268,7 @@ PDF 출력 후 다음 항목을 **반드시** 육안으로 확인하세요.
 | 한글이 □ 로 표시됨 | 엔진이 pdfLaTeX임. XeLaTeX로 변경 |
 | 목차에 장 번호가 안 찍힘 | (영문판) 일반 `\addcontentsline` 대신 `\addstarchaptertoc` 사용 |
 | 참고문헌이 비어있음 | `bibtex main` 실행 후 `xelatex main` 2회 더 실행 |
-| 인준서에 심사위원이 5명으로 나와야 하는데 3명만 나옴 | `frontmatter/04_approval.tex` 의 박사용 2줄 주석 해제 |
+| 인준서에 심사위원 수가 학위와 다르게 나옴 | 영문판은 `metadata.tex` 의 `\DegreeType`, 국문판은 `\DegreeKR` 설정 확인 |
 | 표지 제목이 너무 길어서 넘침 | `metadata.tex` 의 `\ThesisTitleKR/EN` 에 `\\` 로 수동 줄바꿈 삽입 |
 
 ---
