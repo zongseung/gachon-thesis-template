@@ -12,11 +12,13 @@
 
 \vspace{55mm}
 
-% Title of thesis — 21~24pt bold
-% A fixed-width minipage keeps long titles inside the page bounds.
-{\fontsize{22pt}{30pt}\selectfont\bfseries\itshape
-  \begin{minipage}{0.84\textwidth}
+% Title of thesis — 21~24pt bold italic (spec: 21~24 pt).
+% Uses full text width so long titles wrap on word boundaries.
+% For manual line breaks in very long titles, insert \\ inside \ThesisTitleEN.
+{\fontsize{21pt}{28pt}\selectfont\bfseries\itshape
+  \begin{minipage}{\textwidth}
     \centering
+    \sloppy\emergencystretch=3em
     \ThesisTitleEN\par
   \end{minipage}\par}
 
