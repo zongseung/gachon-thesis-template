@@ -8,30 +8,30 @@
 \thispagestyle{empty}
 \begin{center}
 
-\vspace*{30mm}
+\vspace*{\IfDoctoralTF{18mm}{30mm}}
 
 % 16 pt statement (spec: NOT 18 pt)
-{\fontsize{16pt}{26pt}\selectfont\bfseries
-  \begin{minipage}{0.9\textwidth}
+{\fontsize{16pt}{\IfDoctoralTF{22pt}{26pt}}\selectfont\bfseries
+  \begin{minipage}{0.96\textwidth}
     \centering
     \ApprovalStatement
   \end{minipage}\par}
 
-\vspace{25mm}
+\vspace{\IfDoctoralTF{14mm}{25mm}}
 
 {\fontsize{14pt}{18pt}\selectfont\bfseries
   \SubmissionMonth, \SubmissionYear\par}
 
-\vspace{35mm}
+\vspace{\IfDoctoralTF{20mm}{35mm}}
 
-{\fontsize{14pt}{24pt}\selectfont\bfseries
+{\fontsize{14pt}{20pt}\selectfont\bfseries
 \begin{tabular}{@{}l@{\hspace{6mm}}l@{}}
-Committee Chair  & \underline{\hspace{55mm}}\hfill (Signature)\\[10mm]
-Committee Member & \underline{\hspace{55mm}}\hfill (Signature)\\[10mm]
-Committee Member & \underline{\hspace{55mm}}\hfill (Signature)\\[10mm]
+Committee Chair  & \underline{\hspace{\IfDoctoralTF{48mm}{55mm}}}\hfill (Signature)\\[\IfDoctoralTF{6mm}{10mm}]
+Committee Member & \underline{\hspace{\IfDoctoralTF{48mm}{55mm}}}\hfill (Signature)\\[\IfDoctoralTF{6mm}{10mm}]
+Committee Member & \underline{\hspace{\IfDoctoralTF{48mm}{55mm}}}\hfill (Signature)\\[\IfDoctoralTF{6mm}{10mm}]
 \IfDoctoralTF{%
-Committee Member & \underline{\hspace{55mm}}\hfill (Signature)\\[10mm]
-Committee Member & \underline{\hspace{55mm}}\hfill (Signature)\\[10mm]
+Committee Member & \underline{\hspace{48mm}}\hfill (Signature)\\[6mm]
+Committee Member & \underline{\hspace{48mm}}\hfill (Signature)\\[6mm]
 }{}
 \end{tabular}
 }
