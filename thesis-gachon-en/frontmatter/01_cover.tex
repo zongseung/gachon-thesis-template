@@ -13,11 +13,12 @@
 \vspace{55mm}
 
 % Title of thesis — 21~24pt bold
-% Use \\ inside \ThesisTitleEN to wrap long titles.
+% A fixed-width minipage keeps long titles inside the page bounds.
 {\fontsize{22pt}{30pt}\selectfont\bfseries\itshape
-  \begin{tabular}{c}
-    \ThesisTitleEN
-  \end{tabular}\par}
+  \begin{minipage}{0.84\textwidth}
+    \centering
+    \ThesisTitleEN\par
+  \end{minipage}\par}
 
 \vfill
 
